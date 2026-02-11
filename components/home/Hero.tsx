@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { SmartCTA } from "@/components/home/SmartCTA"
 
 export function Hero() {
     return (
@@ -13,14 +14,7 @@ export function Hero() {
                     We pick up, store, and deliver so you don't have to.
                 </p>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
-                    <Link href="/quote">
-                        <Button size="lg" className="text-lg px-8 py-6 h-auto">
-                            Get SPARE space
-                        </Button>
-                    </Link>
-                    <Link href="#how-it-works" className="text-sm font-semibold leading-6 text-gray-900">
-                        Learn more <span aria-hidden="true">→</span>
-                    </Link>
+                    <SmartCTA size="lg" className="text-lg px-8 py-6 h-auto" />
                 </div>
             </div>
         </div>

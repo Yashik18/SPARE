@@ -63,7 +63,7 @@ export function AIEstimatorModal({ isOpen, onClose, onEstimateComplete }: AIEsti
             })
             onClose()
         } catch (err) {
-            setError("Failed to generate estimate. Please try again.")
+            setError("Failed to calculate space. Please try again.")
         } finally {
             setIsLoading(false)
         }
@@ -75,7 +75,7 @@ export function AIEstimatorModal({ isOpen, onClose, onEstimateComplete }: AIEsti
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <Sparkles className="w-5 h-5 text-primary" />
-                        AI Space Estimator
+                        AI Space Calculator
                     </DialogTitle>
                     <DialogDescription>
                         Take a photo of your items or describe them. Our AI will analyze the volume and recommend the perfect unit size.

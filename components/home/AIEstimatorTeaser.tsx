@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sparkles } from "lucide-react"
+import { SmartCTA } from "@/components/home/SmartCTA"
 
 export function AIEstimatorTeaser() {
     return (
@@ -16,14 +17,16 @@ export function AIEstimatorTeaser() {
                         Not sure how much space you need?
                     </h2>
                     <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-                        Try our new Gemini AI Space Calculator. Upload a photo of your items, and we'll recommend the perfect unit size instantly.
+                        Try our new AI Space Calculator. Upload a photo of your items, and we'll recommend the perfect unit size instantly.
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
-                        <Link href="/quote">
-                            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
-                                Try AI Calculator
-                            </Button>
-                        </Link>
+                        <SmartCTA
+                            size="lg"
+                            variant="outline"
+                            className="border-primary text-primary hover:bg-primary hover:text-white"
+                        >
+                            Try AI Calculator
+                        </SmartCTA>
                     </div>
                 </div>
             </div>

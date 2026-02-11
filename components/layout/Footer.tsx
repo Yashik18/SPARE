@@ -30,22 +30,22 @@ export function Footer() {
                                 <h3 className="text-sm font-semibold leading-6 text-gray-900">Solutions</h3>
                                 <ul role="list" className="mt-6 space-y-4">
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/solutions/household" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Household Storage
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/solutions/business" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Business Storage
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/solutions/packaging" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Packaging
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/solutions/moving" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Moving
                                         </Link>
                                     </li>
@@ -55,22 +55,22 @@ export function Footer() {
                                 <h3 className="text-sm font-semibold leading-6 text-gray-900">Support</h3>
                                 <ul role="list" className="mt-6 space-y-4">
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/support/pricing" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Pricing
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/support/documentation" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Documentation
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/support/guides" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Guides
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/support/prohibited-items" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Prohibited Items
                                         </Link>
                                     </li>
@@ -82,17 +82,17 @@ export function Footer() {
                                 <h3 className="text-sm font-semibold leading-6 text-gray-900">Company</h3>
                                 <ul role="list" className="mt-6 space-y-4">
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/company/about" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             About
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/company/blog" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Blog
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/company/careers" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Careers
                                         </Link>
                                     </li>
@@ -102,12 +102,12 @@ export function Footer() {
                                 <h3 className="text-sm font-semibold leading-6 text-gray-900">Legal</h3>
                                 <ul role="list" className="mt-6 space-y-4">
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/legal/privacy" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Privacy
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                                        <Link href="/legal/terms" className="text-sm leading-6 text-gray-600 hover:text-gray-900">
                                             Terms
                                         </Link>
                                     </li>

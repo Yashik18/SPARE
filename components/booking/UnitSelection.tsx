@@ -3,7 +3,7 @@
 import { BookingState } from "./BookingWizard"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Sparkles, Box } from "lucide-react"
+import { Box } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface UnitSelectionProps {
@@ -24,10 +24,6 @@ export function UnitSelection({ state, onChange, onOpenAI }: UnitSelectionProps)
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold">Select Storage Space</h2>
-                <Button variant="outline" size="sm" className="text-primary border-primary hover:bg-primary/5" onClick={onOpenAI}>
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    Not sure? Use AI Estimate
-                </Button>
             </div>
 
             <div className="grid grid-cols-1 gap-4">

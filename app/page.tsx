@@ -4,7 +4,7 @@ import { Services } from "@/components/home/Services"
 import { HowItWorks } from "@/components/home/HowItWorks"
 import { SmartSecurity } from "@/components/home/SmartSecurity"
 import { UseCases } from "@/components/home/UseCases"
-import { AIFeatures } from "@/components/home/AIFeatures"
+import { FAQ } from "@/components/home/FAQ"
 import { AIEstimatorTeaser } from "@/components/home/AIEstimatorTeaser"
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
         <Services />
         <AIEstimatorTeaser />
         <UseCases />
-        <AIFeatures />
+        <FAQ />
       </main>
       <Footer />
     </div>

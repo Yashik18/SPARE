@@ -12,6 +12,16 @@ interface QuoteHeaderProps {
     onStepClick?: (step: number) => void
 }
 
+interface Order {
+    _id: string
+    unitType: string
+    unitSize: number
+    durationDays: number
+    pickupDate: string
+    totalCost: number
+    status: string
+}
+
 export function QuoteHeader({ currentStep, onStepClick }: QuoteHeaderProps) {
     const steps = [
         { id: 1, label: "Select a plan" },
@@ -21,7 +31,19 @@ export function QuoteHeader({ currentStep, onStepClick }: QuoteHeaderProps) {
     ]
 
     const [showItems, setShowItems] = React.useState(false)
+    const [orders, setOrders] = React.useState<Order[]>([])
     const popoverRef = React.useRef<HTMLDivElement>(null)
+
+    React.useEffect(() => {
+        if (showItems) {
+            fetch("/api/orders")
+                .then(res => res.json())
+                .then(data => {
+                    if (Array.isArray(data)) setOrders(data)
+                })
+                .catch(err => console.error("Failed to load orders", err))
+        }
+    }, [showItems])
 
     React.useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -63,15 +85,40 @@ export function QuoteHeader({ currentStep, onStepClick }: QuoteHeaderProps) {
                         </button>
 
                         {showItems && (
-                            <div className="absolute right-0 mt-2 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50 p-4">
+                            <div className="absolute right-0 mt-2 w-96 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50 p-4">
                                 <h3 className="text-lg font-bold text-green-600 mb-4">Your items</h3>
-                                <div className="bg-white border rounded-lg p-4 shadow-sm">
-                                    <p className="text-gray-600 text-sm mb-4">You haven't stored anything with us yet</p>
-                                    <Link href="/quote" onClick={() => setShowItems(false)}>
-                                        <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
-                                            Get spare space
-                                        </Button>
-                                    </Link>
+                                <div className="space-y-3 max-h-[60vh] overflow-y-auto">
+                                    {orders.length > 0 ? (
+                                        orders.map((order: any) => (
+                                            <div key={order._id} className="bg-white border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <div>
+                                                        <span className="font-semibold text-gray-800 capitalize">{order.unitType} Unit</span>
+                                                        <p className="text-xs text-gray-500">{order.unitSize} sq ft • {order.durationDays} days</p>
+                                                    </div>
+                                                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${order.status === 'pickup_scheduled' ? 'bg-green-100 text-green-700' :
+                                                        order.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                                                            'bg-gray-100 text-gray-700'
+                                                        }`}>
+                                                        {order.status.replace('_', ' ').toUpperCase()}
+                                                    </span>
+                                                </div>
+                                                <div className="flex justify-between items-center text-sm pt-2 border-t">
+                                                    <span className="text-gray-500">Pickup: {order.pickupDate ? new Date(order.pickupDate).toLocaleDateString() : 'Not set'}</span>
+                                                    <span className="font-bold">₹{order.totalCost}</span>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="text-center py-6">
+                                            <p className="text-gray-600 text-sm mb-4">You haven't stored anything with us yet</p>
+                                            <Link href="/quote" onClick={() => setShowItems(false)}>
+                                                <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                                                    Get spare space
+                                                </Button>
+                                            </Link>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         )}

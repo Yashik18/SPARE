@@ -16,17 +16,19 @@ import { Sparkles } from "lucide-react"
 export type BookingState = {
     unitSize: number // sq ft
     unitType: "small" | "medium" | "large" | "custom"
-    durationMonths: number
+    durationDays: number
     packaging: boolean
     pickupDate: Date | null
+    pickupAddress: string
 }
 
 const INITIAL_STATE: BookingState = {
     unitSize: 25,
     unitType: "small",
-    durationMonths: 1,
+    durationDays: 3,
     packaging: false,
     pickupDate: null,
+    pickupAddress: "",
 }
 
 export function BookingWizard() {
@@ -35,22 +37,78 @@ export function BookingWizard() {
     const [state, setState] = React.useState<BookingState>(INITIAL_STATE)
     const router = useRouter()
 
-    // Pricing Constants (as per PRD logic)
-    // Base prices per sq ft per month (mocked)
-    const BASE_RATE_PER_SQFT = 50 // ₹50 per sq ft
-    const SURGE_MULTIPLIER = 1.0 // Phase 1: 1.0
+    // Pricing Constants & Logic
+    const calculateDailyRate = (type: string, size: number) => {
+        // Fixed Pricing
+        if (type === "small") return 80
+        if (type === "medium") return 150
+        if (type === "large") return 283
 
-    const calculateTotal = () => {
-        const storageCost = state.unitSize * BASE_RATE_PER_SQFT * state.durationMonths * SURGE_MULTIPLIER
-        // Packaging is quote-based, so not added here, just noted.
-        return storageCost
+        // Flexible Pricing
+        if (type === "custom") {
+            if (size <= 25) {
+                return size * 4
+            } else if (size <= 50) {
+                // (25-50sq) pricing calculated in equation to pricing of 25 sq
+                // 25sq fixed is 80, so rate is 80/25 = 3.2
+                return size * 3.2
+            } else if (size <= 100) {
+                // (50-100sq) pricing calculated in equation to pricing of 50 sq
+                // 50sq fixed is 150, so rate is 150/50 = 3.0
+                return size * 3.0
+            } else {
+                // above 100 sq- pricing calculated in equation to pricing of 100 sq
+                // 100sq fixed is 283, so rate is 283/100 = 2.83
+                return size * 2.83
+            }
+        }
+        return 0
     }
 
-    const nextStep = () => setStep(s => s + 1)
+    const calculateTotal = () => {
+        const dailyRate = calculateDailyRate(state.unitType, state.unitSize)
+        // Minimum 3 days booking is enforced in UI, but safe to clamp here or just trust state
+        const duration = Math.max(3, state.durationDays)
+        return Math.round(dailyRate * duration)
+    }
+
+    const nextStep = () => {
+        if (step === 3) {
+            if (!state.pickupDate || !state.pickupAddress) {
+                alert("Please select a pickup date and enter your address to proceed.")
+                return
+            }
+        }
+        setStep(s => s + 1)
+    }
     const prevStep = () => setStep(s => s - 1)
 
-    const handleConfirm = () => {
-        router.push("/")
+    const handleConfirm = async () => {
+        try {
+            const response = await fetch("/api/orders", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    unitSize: state.unitSize,
+                    unitType: state.unitType,
+                    durationDays: Math.max(3, state.durationDays),
+                    packaging: state.packaging,
+                    pickupDate: state.pickupDate,
+                    pickupAddress: state.pickupAddress,
+                    totalCost: calculateTotal(),
+                }),
+            })
+
+            if (response.ok) {
+                const order = await response.json()
+                router.push(`/payment/${order._id}`)
+            } else {
+                console.error("Failed to create order")
+                // Optionally show error toast here
+            }
+        } catch (error) {
+            console.error("Error submitting booking:", error)
+        }
     }
 
     const handleAIEstimate = (result: { unitSize: number; unitType: string }) => {
@@ -139,15 +197,15 @@ export function BookingWizard() {
                         <div className="lg:col-span-1">
                             <Card className="sticky top-40">
                                 <CardContent className="p-6">
-                                    <h3 className="font-semibold text-lg mb-4">Estimated Quote</h3>
+                                    <h3 className="font-semibold text-lg mb-4">Quote Summary</h3>
                                     <div className="space-y-3 text-sm">
                                         <div className="flex justify-between">
                                             <span>Unit Size ({state.unitSize} sq ft)</span>
-                                            <span>₹{state.unitSize * BASE_RATE_PER_SQFT}/mo</span>
+                                            <span>₹{Math.round(calculateDailyRate(state.unitType, state.unitSize))}/day</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span>Duration ({state.durationMonths} mo)</span>
-                                            <span>x {state.durationMonths}</span>
+                                            <span>Duration ({state.durationDays} days)</span>
+                                            <span>x {state.durationDays}</span>
                                         </div>
                                         {state.packaging && (
                                             <div className="flex justify-between text-primary font-medium">
@@ -159,7 +217,7 @@ export function BookingWizard() {
                                             <span>Total</span>
                                             <span>₹{calculateTotal().toLocaleString()}</span>
                                         </div>
-                                        <p className="text-xs text-muted-foreground mt-2">* Final price may vary based on exact items and surge conditions.</p>
+                                        <p className="text-xs text-muted-foreground mt-2">* Final price may vary based on exact items. Packing charges are additional to this.</p>
                                     </div>
                                 </CardContent>
                             </Card>

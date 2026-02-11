@@ -25,9 +25,6 @@ export function UserMenu() {
                 <Link href="/login" className="text-sm font-semibold leading-6 text-gray-900 hover:text-green-600">
                     Log in
                 </Link>
-                <Link href="/signup" className="text-sm font-semibold leading-6 text-gray-900 hover:text-green-600">
-                    Sign up
-                </Link>
             </div>
         )
     }

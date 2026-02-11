@@ -28,7 +28,7 @@ export function PackagingOption({ state, onChange }: PackagingOptionProps) {
                     </div>
                     <div className="flex-1">
                         <div className="flex items-center justify-between">
-                            <h3 className="font-semibold text-lg">Spare-Managed Packaging</h3>
+                            <h3 className="font-semibold text-lg">SPARE-Managed Packaging</h3>
                             <Switch checked={state.packaging} onCheckedChange={(c) => onChange({ packaging: c })} />
                         </div>
                         <p className="text-gray-600 mt-1 text-sm">

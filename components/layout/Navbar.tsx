@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { UserMenu } from "@/components/layout/UserMenu"
+import { SmartCTA } from "@/components/home/SmartCTA"
 
 const navigation = [
     { name: "Services", href: "#services" },
@@ -61,9 +62,7 @@ export function Navbar() {
                     ))}
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4 items-center">
-                    <Link href="/quote">
-                        <Button>Get SPARE space</Button>
-                    </Link>
+                    <SmartCTA />
                     <UserMenu />
                 </div>
             </nav>
@@ -82,9 +81,7 @@ export function Navbar() {
                             </Link>
                         ))}
                         <div className="mt-4">
-                            <Link href="/quote" onClick={() => setMobileMenuOpen(false)}>
-                                <Button className="w-full">Get SPARE space</Button>
-                            </Link>
+                            <SmartCTA className="w-full" />
                         </div>
                     </div>
                 </div>
