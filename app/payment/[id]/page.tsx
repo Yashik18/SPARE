@@ -83,7 +83,7 @@ export default function PaymentPage({ params }: PaymentPageProps) {
                         Secure Payment
                     </CardTitle>
                     <CardDescription>
-                        Complete your booking securely via Razorpay (Mock).
+                        Complete your booking securely via Razorpay.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
