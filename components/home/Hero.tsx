@@ -13,7 +13,7 @@ export function Hero() {
                     priority
                 />
                 {/* Gradient overlay for text readability on left side */}
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-100/90 via-gray-100/60 to-transparent sm:from-white/95 sm:via-white/70" />
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-100/90 via-gray-100/40 to-transparent sm:from-white/95 sm:via-white/25" />
             </div>
 
             <div className="mx-auto max-w-7xl px-6 py-32 sm:py-48 lg:px-8 lg:py-56 relative z-10">
